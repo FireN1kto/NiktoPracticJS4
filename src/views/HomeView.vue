@@ -22,7 +22,10 @@
     </ul>
     <p v-else-if="!loading">Товары отсутствуют.</p>
     <div v-if="loading" class="loading">Загрузка...</div>
-    <button @click="goToCart" class="goToCart">Корзина</button>
+    <div class="goToCart">
+      <button @click="goToCart" class="goToCart">Корзина</button>
+      <button @click="goToOrders">Мои заказы</button>
+    </div>
   </div>
 </template>
 
@@ -46,6 +49,9 @@ export default {
     },
     goToCart() {
       this.$router.push('/cart');
+    },
+    goToOrders() {
+      this.$router.push('/orders');
     }
   },
   created() {
@@ -107,6 +113,11 @@ export default {
   }
 
   .goToCart {
+    display: flex;
+    gap: 1%;
+  }
+
+  .goToCart > button {
     border: none;
     background-color: cornflowerblue;
     padding: 1%;
@@ -115,11 +126,11 @@ export default {
     transition: background-color 0.3s ease-out;
   }
 
-  .goToCart:hover {
+  .goToCart > button:hover {
     background-color: dodgerblue;
   }
 
-  .goToCart:active {
+  .goToCart > button :active {
     background-color: dodgerblue;
   }
 
