@@ -22,7 +22,7 @@
     </ul>
     <p v-else-if="!loading">Товары отсутствуют.</p>
     <div v-if="loading" class="loading">Загрузка...</div>
-    <button @click="goToCart">Перейти в корзину</button>
+    <button @click="goToCart" class="goToCart">Корзина</button>
   </div>
 </template>
 
@@ -78,7 +78,6 @@ export default {
   }
 
   .product-item > img {
-    width:12%;
     margin: 2%;
     border-radius: 10px;
   }
@@ -105,6 +104,23 @@ export default {
 
   .product-info > button:active {
     background-color: steelblue;
+  }
+
+  .goToCart {
+    border: none;
+    background-color: cornflowerblue;
+    padding: 1%;
+    margin-bottom: 2%;
+    border-radius: 10px;
+    transition: background-color 0.3s ease-out;
+  }
+
+  .goToCart:hover {
+    background-color: dodgerblue;
+  }
+
+  .goToCart:active {
+    background-color: dodgerblue;
   }
 
   .error {

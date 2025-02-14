@@ -9,13 +9,15 @@ export default {
   },
   methods: {
     handleLogin() {
-      const userData = { email: this.email, password: this.password };
-      this.$store.dispatch('login', userData)
+      const credentials = {email: this.email, password: this.password};
+      this.$store
+          .dispatch('login', credentials)
           .then(() => {
             this.$router.push('/');
           })
           .catch(err => {
-            this.error = err.message || 'Неверный email или пароль';
+            this.error = err.message || 'Неверные учетные данные';
+            console.error('Ошибка входа:', err);
           });
     },
     goBack() {
@@ -35,11 +37,14 @@ export default {
       <input type="password" id="password" v-model="password" required />
       <button type="submit">Войти</button>
     </form>
-    <p v-if="error">{{ error }}</p>
+    <p v-if="error" class="error">{{ error }}</p>
     <button @click="goBack">Назад</button>
   </div>
 </template>
 
-<style scoped>
-
+<style>
+.error {
+  color: red;
+  font-weight: bold;
+}
 </style>

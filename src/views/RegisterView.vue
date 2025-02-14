@@ -11,13 +11,15 @@ export default {
   methods: {
     handleRegister() {
       const userData = { name: this.name, email: this.email, password: this.password };
-      this.$store.dispatch('register', userData)
+      this.$store
+          .dispatch('register', userData)
           .then(() => {
             alert('Регистрация успешна!');
             this.$router.push('/login');
           })
           .catch(err => {
             this.error = err.message || 'Ошибка регистрации';
+            console.error('Ошибка регистрации:', err);
           });
     },
     goBack() {
@@ -44,6 +46,6 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style>
 
 </style>
