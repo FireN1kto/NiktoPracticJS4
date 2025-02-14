@@ -1,16 +1,21 @@
 <template>
   <div class="home">
+    <div class="menu">
+      <button v-if="user" @click="logout">Выход</button>
+      <button v-else @click="goToLogin">Войти</button>
+      <button v-if="!user" @click="goToRegister">Регистрация</button>
+      <button v-if="user" @click="goToOrders">Мои заказы</button>
+    </div>
     <h1>Каталог товаров</h1>
-    <button v-if="user" @click="logout">Выход</button>
-    <button v-else @click="goToLogin">Войти</button>
-    <button v-if="!user" @click="goToRegister">Регистрация</button>
-    <button v-if="user" @click="goToOrders">Мои заказы</button>
+    <p v-if="error" class="error">{{ error }}</p>
     <ul>
       <li v-for="product in products" :key="product.id">
         {{ product.name }} - ${{ product.price }}
         <button v-if="user" @click="addToCart(product)">Добавить в корзину</button>
       </li>
     </ul>
+    <p v-if="!products.length && !loading">Товары отсутствуют.</p>
+    <div v-if="loading" class="loading">Загрузка...</div>
     <button @click="goToCart">Перейти в корзину</button>
   </div>
 </template>
@@ -24,7 +29,13 @@ export default {
     },
     products() {
       return this.$store.state.products;
-    }
+    },
+    data() {
+      return {
+        loading: true, // Флаг загрузки
+        error: null    // Сообщение об ошибке
+      };
+    },
   },
   methods: {
     addToCart(product) {
@@ -48,7 +59,28 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('fetchProducts'); // Загрузка товаров при создании компонента
+    // Загрузка товаров из API
+    this.$store
+        .dispatch('fetchProducts')
+        .then(() => {
+          this.loading = false; // Завершаем загрузку
+        })
+        .catch((err) => {
+          this.loading = false; // Завершаем загрузку
+          this.error = 'Не удалось загрузить товары. Попробуйте позже.';
+          console.error('Ошибка загрузки товаров:', err);
+        });
   }
 };
 </script>
+
+<style>
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+  .loading {
+    font-style: italic;
+    color: gray;
+  }
+</style>

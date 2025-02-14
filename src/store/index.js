@@ -25,10 +25,6 @@ export default createStore({
     REMOVE_FROM_CART(state, productId) {
       state.cart = state.cart.filter(item => item.id !== productId);
     },
-    UPDATE_QUANTITY(state, { id, quantity }) {
-      const item = state.cart.find(item => item.id === id);
-      if (item) item.quantity = quantity;
-    },
     CLEAR_CART(state) {
       state.cart = [];
     },
@@ -50,17 +46,14 @@ export default createStore({
     logout({ commit }) {
       commit('LOGOUT');
     },
-    addToCart({ commit }, product) {
-      commit('ADD_TO_CART', product);
+    addToBasket({ commit }, product) {
+      commit('ADD_TO_BASKET', product);
     },
-    removeFromCart({ commit }, productId) {
-      commit('REMOVE_FROM_CART', productId);
+    removeFromBasket({ commit }, productId) {
+      commit('REMOVE_FROM_BASKET', productId);
     },
-    updateQuantity({ commit }, payload) {
-      commit('UPDATE_QUANTITY', payload);
-    },
-    clearCart({ commit }) {
-      commit('CLEAR_CART');
+    clearBasket({ commit }) {
+      commit('CLEAR_BASKET');
     },
     addOrder({ commit, state }) {
       const order = { items: [...state.cart], date: new Date().toISOString() };
@@ -68,12 +61,14 @@ export default createStore({
       commit('CLEAR_CART');
     },
     fetchProducts({ commit }) {
-      axios.get('/products')
+      return axios
+          .get('/products')
           .then(response => {
             commit('SET_PRODUCTS', response.data);
           })
           .catch(error => {
             console.error('Ошибка при загрузке товаров:', error);
+            throw error;
           });
     }
   }
