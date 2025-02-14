@@ -19,7 +19,7 @@
 <style>
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   padding: 10px 20px;
   background-color: #00bfff;
@@ -35,6 +35,24 @@
   display: flex;
   gap: 10px;
 }
+
+.auth-actions > button {
+  border: none;
+  background-color: cornflowerblue;
+  padding: 8%;
+  margin-bottom: 2%;
+  border-radius: 10px;
+  transition: background-color 0.3s ease-out;
+}
+
+.auth-actions > button:hover {
+  background-color: dodgerblue;
+}
+
+.auth-actions > button:active {
+  background-color: steelblue;
+}
+
 </style>
 
 <script>
