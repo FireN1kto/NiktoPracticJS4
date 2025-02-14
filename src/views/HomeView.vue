@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <h1>Каталог товаров</h1>
     <p v-if="error" class="error">{{ error }}</p>
+    <h1>Каталог товаров</h1>
     <ul v-if="products.length">
       <li v-for="product in products" :key="product.id">
         <li v-for="product in products" :key="product.id" class="product-item">
@@ -70,8 +70,13 @@ export default {
   .home > ul > li {
     list-style: none;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .home >ul > li > li {
+    margin-left: 5%;
+    margin-right: 3%;
   }
 
   .product-item {
@@ -80,7 +85,9 @@ export default {
     border: 1px solid black;
     margin-bottom: 5%;
     background-color: rgba(0, 191, 255, 0.4);
-    width: 80%;
+    width: 40%;
+    flex-wrap: wrap;
+    flex-direction: column;
   }
 
   .product-item > img {
@@ -122,8 +129,12 @@ export default {
     background-color: cornflowerblue;
     padding: 1%;
     margin-bottom: 2%;
+    margin-top: 2%;
+    margin-left: 20%;
     border-radius: 10px;
     transition: background-color 0.3s ease-out;
+    width: 70px;
+    height: 40px;
   }
 
   .goToCart > button:hover {
