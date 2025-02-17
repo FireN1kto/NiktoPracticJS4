@@ -2,14 +2,14 @@
   <div id="app">
     <nav class="navbar">
       <h1>Просто купить</h1>
-      <div v-if="user" class="auth-actions">
-        <span>Добро пожаловать, {{ user.username }}!</span>
-        <button @click="basket">Корзина</button>
-        <button @click="logout">Выход</button>
-      </div>
-      <div v-else class="auth-actions">
-        <button @click="goToLogin">Войти</button>
-        <button @click="goToRegister">Регистрация</button>
+      <div class="auth-actions">
+        <button v-if="!user" @click="goToLogin">Войти</button>
+        <button v-if="!user" @click="goToRegister">Регистрация</button>
+        <button @click="goToCart" class="cart-button">Корзина</button>
+        <button v-if="!user" @click="goToOrders" class="orders-button">Мои заказы</button>
+
+        <span v-if="user">Добро пожаловать, {{ user.email }}!</span>
+        <button v-if="user" @click="logout">Выход</button>
       </div>
     </nav>
   </div>
@@ -39,7 +39,7 @@
 .auth-actions > button {
   border: none;
   background-color: cornflowerblue;
-  padding: 8%;
+  padding: 4%;
   margin-bottom: 2%;
   border-radius: 10px;
   transition: background-color 0.3s ease-out;
@@ -72,6 +72,12 @@ export default {
     },
     goToRegister() {
       this.$router.push('/register');
+    },
+    goToCart() {
+      this.$router.push('/cart');
+    },
+    goToOrders() {
+      this.$router.push('/orders');
     }
   }
 };

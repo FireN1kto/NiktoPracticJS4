@@ -1,10 +1,7 @@
 <script>
+import OrderSummary from '@/components/OrderSumm.vue';
 export default {
-  computed: {
-    orders() {
-      return this.$store.state.orders;
-    }
-  },
+  components: {OrderSummary},
   methods: {
     goBack() {
       this.$router.push('/');
@@ -14,63 +11,34 @@ export default {
 </script>
 
 <template>
-  <div class="orders">
+  <div class="orders-view">
     <h1>Мои заказы</h1>
-    <ul v-if="orders.length">
-      <li v-for="(order, index) in orders" :key="index" class="order-item">
-        <h3>Заказ #{{ index + 1 }}</h3>
-        <p><strong>Дата:</strong> {{ order.date }}</p>
-        <ul>
-          <li v-for="item in order.items" :key="item.id" class="order-product">
-            <img :src="item.image" :alt="item.name" width="50" height="50" />
-            <div class="product-info">
-              <p>{{ item.name }} x {{ item.quantity }} = ${{ (item.price * item.quantity).toFixed(2) }}</p>
-            </div>
-          </li>
-        </ul>
-        <p><strong>Состояние:</strong> В пути</p>
-      </li>
-    </ul>
-    <p v-else>У вас пока нет заказов.</p>
-    <button @click="goBack" class="back">Назад</button>
+    <OrderSummary />
+    <button @click="goBack" class="back-button">Назад</button>
   </div>
 </template>
 
 <style>
-.orders {
+.orders-view {
   padding: 20px;
+  text-align: center;
 }
 
-.orders > ul {
-  list-style: none;
-}
-
-.order-product {
-  display: flex;
-}
-
-.order-item {
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.back {
+.back-button {
+  background-color: rgba(0, 0, 0, 0.20);
+  color: white;
   border: none;
-  background-color: cornflowerblue;
-  padding: 1%;
-  margin-bottom: 2%;
-  border-radius: 10px;
-  transition: background-color 0.3s ease-out;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  width: 10%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
-.back:hover {
-  background-color: dodgerblue;
-}
-
-.back:active {
-  background-color: steelblue;
+.back-button:hover {
+  transform: scaleX(0.9);
+  background-color: #35495e;
 }
 
 </style>
