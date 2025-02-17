@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar">
-      <h1>Просто купить</h1>
+      <h1 @click="goToHome">Просто купить</h1>
       <div class="auth-actions">
         <button v-if="!user" @click="goToLogin">Войти</button>
         <button v-if="!user" @click="goToRegister">Регистрация</button>
@@ -78,6 +78,9 @@ export default {
     },
     goToOrders() {
       this.$router.push('/orders');
+    },
+    goToHome() {
+      this.$router.push('/home');
     }
   }
 };
