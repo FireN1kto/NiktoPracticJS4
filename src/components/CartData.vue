@@ -1,5 +1,4 @@
 <template>
-  <template>
     <div class="cart-item">
       <img :src="item.image" :alt="item.name" width="80" height="80" class="item-image" />
       <div class="item-info">
@@ -14,8 +13,6 @@
       </div>
       <button @click="removeFromCart" class="remove-button">Удалить</button>
     </div>
-  </template>
-
 </template>
 
 <script>
@@ -54,11 +51,10 @@ export default {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.5s ease;
 }
 .cart-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px black;
 }
 .item-image {
   border-radius: 5px;
@@ -69,11 +65,11 @@ export default {
 }
 .quantity-controls {
   display: flex;
-  align-items: center;
+  margin-left: 42%;
   margin-top: 10px;
 }
 .quantity-button {
-  background-color: #42b983;
+  background-color: cornflowerblue;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -83,14 +79,19 @@ export default {
   transition: background-color 0.3s ease;
 }
 .quantity-button:hover {
-  background-color: #38a169;
+  box-shadow: 0 0px 10px black;
 }
+
+.quantity-button:active {
+  background-color: #35495e;
+}
+
 .quantity {
   margin: 0 10px;
   font-weight: bold;
 }
 .remove-button {
-  background-color: #f44336;
+  background-color: red;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -100,6 +101,6 @@ export default {
   transition: background-color 0.3s ease;
 }
 .remove-button:hover {
-  background-color: #d32f2f;
+  background-color: darkred;
 }
 </style>
